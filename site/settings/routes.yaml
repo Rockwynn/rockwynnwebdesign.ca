@@ -1,0 +1,40 @@
+collections:
+  articles: '/articles/{slug}'
+  blog: '/blog/{year}/{month}/{day}/{slug}'
+  things: '/things/{slug}'
+  sitemap: '/layouts/sitemap'
+taxonomies:
+  topics: '/articles/topics/{slug}'
+  tags: '/blog/tags/{slug}'
+routes:
+  /articles/topics: topics
+  /blog/tags: blog/taxonomies
+  /search: search
+  /users: user/index
+  /users/{username}: user/profile
+  /account: user/account
+  /login: auth/login
+  /register: auth/register
+  /forgot-password: auth/password-forgot
+  /reset-password: auth/password-reset
+  /blog/feed:
+    layout: feed
+    template: feeds/blog
+    content_type: atom
+  /things/feed:
+    layout: feed
+    template: feeds/things
+    content_type: atom
+  /sitemap:
+    template: sitemap
+    layout: sitemap
+    content_type: xml
+  /hosting-and-maintenance: footer-nav-links/hosting-and-maintenance
+  /footer-nav-links/hosting-and-maintenance:
+    template: hosting-and-maintenance
+    layout: second-nav-hidden
+  /privacy-policy: footer-nav-links/privacy-policy
+  /sitemap: footer-nav-links/sitemap
+  /terms-of-use: footer-nav-links/terms-of-use
+  /web-design-agreement: footer-nav-links/web-design-agreement
+  /web-design-process: footer-nav-links/web-design-process
