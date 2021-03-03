@@ -81,7 +81,7 @@ class FlockStore implements StoreInterface
         set_error_handler(function ($type, $msg) use (&$error) { $error = $msg; });
         if (!$handle = fopen($fileName, 'r+') ?: fopen($fileName, 'r')) {
             if ($handle = fopen($fileName, 'x')) {
-                chmod($fileName, 0444);
+                chmod($fileName, 0666);
             } elseif (!$handle = fopen($fileName, 'r+') ?: fopen($fileName, 'r')) {
                 usleep(100); // Give some time for chmod() to complete
                 $handle = fopen($fileName, 'r+') ?: fopen($fileName, 'r');
@@ -95,7 +95,7 @@ class FlockStore implements StoreInterface
 
         // On Windows, even if PHP doc says the contrary, LOCK_NB works, see
         // https://bugs.php.net/54129
-        if (!flock($handle, LOCK_EX | ($blocking ? 0 : LOCK_NB))) {
+        if (!flock($handle, \LOCK_EX | ($blocking ? 0 : \LOCK_NB))) {
             fclose($handle);
             throw new LockConflictedException();
         }
@@ -123,7 +123,7 @@ class FlockStore implements StoreInterface
 
         $handle = $key->getState(__CLASS__);
 
-        flock($handle, LOCK_UN | LOCK_NB);
+        flock($handle, \LOCK_UN | \LOCK_NB);
         fclose($handle);
 
         $key->removeState(__CLASS__);
